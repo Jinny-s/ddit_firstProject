@@ -3,7 +3,6 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import controller.Controller;
 import util.JDBCUtil;
 
@@ -22,7 +21,7 @@ public class RestDao {
 
 	//식당 회원가입
 	public int insertRest(Map<String, Object> param) {
-		String sql = "insert into restaurant values (?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into restaurant values (?, ?, ?, ?, ?, ?, ?, REST_SEQ.NEXTVAL)";
 
 		List<Object> p = new ArrayList<>();
 		p.add(param.get("RSTRNT_ID"));
@@ -32,6 +31,7 @@ public class RestDao {
 		p.add(param.get("RSTRNT_ADRES1"));
 		p.add(param.get("RSTRNT_ADRES2"));
 		p.add(param.get("FDTY_GU"));
+
 
 		return jdbc.update(sql, p);
 	}
@@ -48,72 +48,60 @@ public class RestDao {
 
 	//식당 정보 수정
 	public int updateRest(String rstrntId, Map<String, Object> param) {
-		String sql = "UPDATE RESTAURANT SET ";
+		String sql = "UPDATE RESTAURANT SET  ";
 
 		List<Object> p = new ArrayList<>();
 
-		if (!param.get("RSTRNT_PW").equals("")) {
-			sql += " RSTRNT_PW = ?,";
-			p.add(param.get("RSTRNT_PW"));
-		}
-
-		if (!param.get("RSTRNT_NM").equals("")) {
-			sql += " RSTRNT_NM = ?,";
-			p.add(param.get("RSTRNT_NM"));
+		for (String key : param.keySet()) {
+			Object value = param.get(key);
+			if (!value.equals("")) {
+				p.add(value);
+				sql = sql + " " + key + "= ?,";
+			} 
 		}
 		
-		if (!param.get("RSTRNT_TELNO").equals("")) {
-			sql += " RSTRNT_TELNO = ?,";
-			p.add(param.get("RSTRNT_TELNO"));
-		}
-
-		if (!param.get("RSTRNT_ADRES1").equals("")) {
-			sql += " RSTRNT_ADRES1 = ?,";
-			p.add(param.get("RSTRNT_ADRES1"));
-		}
-
-		if (!param.get("RSTRNT_ADRES2").equals("")) {
-			sql += " RSTRNT_ADRES2 = ?,";
-			p.add(param.get("RSTRNT_ADRES2"));
-		}
-		
-		if (!param.get("FDTY_GU").equals("")) {
-			sql += " FDTY_GU = ?";
-			p.add(param.get("FDTY_GU"));
-		}
-
-
-//		for (String key : param.keySet()) {
-//			Object value = param.get(key);
-//			if (value != null) {							//value != "" 인지 테스트 필요
-//				p.add(value);
-//				sql = sql + " " + key + "= ?,";
-//			}
-//		}
-		
-//		sql = sql.substring(0, sql.length() - 1);
+		sql = sql.substring(0, sql.length() - 1);
 
 		sql += " WHERE RSTRNT_ID = ?";
 		p.add(rstrntId);
 
 		return jdbc.update(sql, p);
-
 	}
 
 	//주문 내역 조회
 	public List<Map<String, Object>> selectOrder(String rstrntId) {
 		String sql =
-				"SELECT *" +
-				" FROM 	RESTAURANT A, ORDERLIST B" +
-				" WHERE 	A.RSTRNT_ID = B.RSTRNT_ID AND A.RSTRNT_ID = ?";
+				"SELECT B.ORDER_ID, B.CSTMR_ID, A.RSTRNT_ID, B.ORDER_STATUS, B.ORDER_COST, TO_CHAR(B.ORDER_DATE, 'YYYY-MM-DD') AS ORDER_DATE"
+				+ " FROM RESTAURANT A, ORDERLIST B WHERE A.RSTRNT_ID = B.RSTRNT_ID"
+				+ " AND A.RSTRNT_ID = ?";
+//				"SELECT *" +
+//				" FROM 	RESTAURANT A, ORDERLIST B" +
+//				" WHERE 	A.RSTRNT_ID = B.RSTRNT_ID AND A.RSTRNT_ID = ?";
 		List<Object> param = new ArrayList<>();
 		param.add(rstrntId);
 		return jdbc.selectList(sql, param);
 	}
 	
 	//주문 상세 조회
-	public Map<String, Object> detailOrder(String orderId, String rstrntId) {
-		String sql = "SELECT * FROM CONTENT A, MENU B WHERE A.MENU_ID = B.MENU_ID AND RSTRNT_ID = ? AND ORDER_ID = ?";
+	public List<Map<String, Object>> detailOrder(String orderId, String rstrntId) {
+		String sql = "SELECT A.ORDER_ID, A.MENU_ID, B.MENU_NM, B.MENU_PRICE, A.CONTENT_QTY,"
+				+ " SUM(A.CONTENT_QTY * B.MENU_PRICE) AS PRICESUM"
+				+ " FROM CONTENT A, MENU B"
+				+ " WHERE A.MENU_ID = B.MENU_ID AND B.RSTRNT_ID = ? AND A.ORDER_ID = ?"
+				+ " GROUP BY A.ORDER_ID, A.MENU_ID, B.MENU_NM, B.MENU_PRICE, A.CONTENT_QTY";
+		List<Object> p = new ArrayList<>();
+		p.add(rstrntId);
+		p.add(orderId);
+		return jdbc.selectList(sql, p);
+	}
+	
+	//주문 상세 조회2
+	public Map<String, Object> detailOrder2(String orderId, String rstrntId) {
+		String sql = "SELECT A.ORDER_ID, A.MENU_ID, B.MENU_NM, B.MENU_PRICE, A.CONTENT_QTY,"
+				+ " TO_CHAR(SUM(A.CONTENT_QTY * B.MENU_PRICE)) AS PRICESUM"
+				+ " FROM CONTENT A, MENU B"
+				+ " WHERE A.MENU_ID = B.MENU_ID AND B.RSTRNT_ID = ? AND A.ORDER_ID = ?"
+				+ " GROUP BY A.ORDER_ID, A.MENU_ID, B.MENU_NM, B.MENU_PRICE, A.CONTENT_QTY";
 		List<Object> p = new ArrayList<>();
 		p.add(rstrntId);
 		p.add(orderId);
@@ -123,10 +111,10 @@ public class RestDao {
 	//주문 접수
 	public int updateStatus(String orderStatus, String orderId) {
 		String sql = "UPDATE ORDERLIST SET ORDER_STATUS = ? WHERE ORDER_ID = ?";
-		List<Object> param = new ArrayList<>();
-		param.add(orderStatus);
-		param.add(orderId);
-		return jdbc.update(sql, param);
+		List<Object> p = new ArrayList<>();
+		p.add(orderStatus);
+		p.add(orderId);
+		return jdbc.update(sql, p);
 	}
 	
 	//소요 시간 : 서비스에서 발송
@@ -165,9 +153,9 @@ public class RestDao {
 	public List<Map<String, Object>> selectMyReview(String rstrntId) {
 		// 리뷰내역 조회
 		String sql = "SELECT * FROM REVIEW WHERE RSTRNT_ID = ?";
-		List<Object> param = new ArrayList<>();
-		param.add(rstrntId);
-		return jdbc.selectList(sql, param);
+		List<Object> p = new ArrayList<>();
+		p.add(rstrntId);
+		return jdbc.selectList(sql, p);
 	}
 	
 	//리뷰 삭제
@@ -191,5 +179,36 @@ public class RestDao {
 	//	 * 3-3. 메뉴 추가 및 삭제
 	//	 * 3-4. 리뷰 조회 및 삭제
 	
+	//백업
+
+//	if (!param.get("RSTRNT_PW").equals("")) {
+//		sql += " RSTRNT_PW = ?,";
+//		p.add(param.get("RSTRNT_PW"));
+//	}
+//
+//	if (!param.get("RSTRNT_NM").equals("")) {
+//		sql += " RSTRNT_NM = ?,";
+//		p.add(param.get("RSTRNT_NM"));
+//	}
+//	
+//	if (!param.get("RSTRNT_TELNO").equals("")) {
+//		sql += " RSTRNT_TELNO = ?,";
+//		p.add(param.get("RSTRNT_TELNO"));
+//	}
+//
+//	if (!param.get("RSTRNT_ADRES1").equals("")) {
+//		sql += " RSTRNT_ADRES1 = ?,";
+//		p.add(param.get("RSTRNT_ADRES1"));
+//	}
+//
+//	if (!param.get("RSTRNT_ADRES2").equals("")) {
+//		sql += " RSTRNT_ADRES2 = ?,";
+//		p.add(param.get("RSTRNT_ADRES2"));
+//	}
+//	
+//	if (!param.get("FDTY_GU").equals("")) {
+//		sql += " FDTY_GU = ?";
+//		p.add(param.get("FDTY_GU"));
+//	}
 	
 }

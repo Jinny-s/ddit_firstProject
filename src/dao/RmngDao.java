@@ -3,11 +3,12 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import util.JDBCUtil;
 
 public class RmngDao {
 	
-	private RmngDao(){}
+//	private RmngDao(){}
 	
 	private static RmngDao instance;
 	
@@ -33,8 +34,8 @@ public class RmngDao {
 
 		return jdbc.update(sql, p);
 	}
-
-	//배달 대행 업체 로그인
+ 
+	//배달 대행 업체 로그인, 정보 조회
 	public Map<String, Object> selectRmng(String userId, String password) {
 
 		String sql = "select * from rider_mng where mng_id = ? and mng_pw = ?";
@@ -44,6 +45,36 @@ public class RmngDao {
 		
 		return jdbc.selectOne(sql, param);
 	}
+	
+	//대행 업체 정보 수정
+	public int rmngUpdate(String riderId, Map<String, Object> param) {
+				String sql = "UPDATE RIDER_MNG SET ";
+
+				List<Object> p = new ArrayList<>();
+
+				if (!param.get("MNG_PW").equals("")) {
+					sql += " MNG_PW = ?,";
+					p.add(param.get("MNG_PW"));
+				}
+
+				if (!param.get("MNG_NM").equals("")) {
+					sql += " MNG_NM = ?,";
+					p.add(param.get("MNG_NM"));
+				}
+
+				if (!param.get("MNG_TELNO").equals("")) {
+					sql += " MNG_TELNO = ?,";
+					p.add(param.get("MNG_TELNO"));
+				}
+				
+				sql = sql.substring(0, sql.length() - 1);
+
+				
+				sql += " WHERE MNG_ID = ?";
+				p.add(riderId);
+				
+				return jdbc.update(sql, p);
+			}
 	
 	//라이더 목록 조회
 	public List<Map<String, Object>> ridersView(){
