@@ -26,9 +26,8 @@ public class RiderService {
 
 	//라이더 회원가입
 	public int riderJoin(){
-		System.out.println("┌──────────────────────────────────────────────┐");
-		System.out.println("│				     라이더 회원가입				   │");
-		System.out.println("└──────────────────────────────────────────────┘");
+		System.out.println("───────────────── 라이더스　회원가입 ─────────────────");
+
 		System.out.println("아이디를 입력해주세요 >");
 		String riderId = ScanUtil.nextLine();
 		
@@ -66,9 +65,13 @@ public class RiderService {
 		int result = riderDao.insertRider(param);
 		
 		if(0 < result){
-			System.out.println("라이더님, 회원가입이 성공하였습니다!");
+			System.out.println("┌─────────────────────────────────────────────┐");
+			System.out.println("│　　　　　　　　라이더스 가입이 완료되었습니다　　　　　　　 │");
+			System.out.println("└─────────────────────────────────────────────┘");
 		}else{
-			System.out.println("라이더님, 회원가입이 실패하였습니다ㅠㅠ");
+			System.out.println("┌─────────────────────────────────────────────┐");
+			System.out.println("│　　　　　　　　라이더스 가입이 실패하였습니다　　　　　　　 │");
+			System.out.println("└─────────────────────────────────────────────┘");
 		}
 		
 		return View.HOME;
@@ -76,9 +79,7 @@ public class RiderService {
 	
 	//라이더 로그인
 	public int riderLogin() {
-		System.out.println("┌──────────────────────────────────────────────┐");
-		System.out.println("│                  라이더 로그인                                       │");
-		System.out.println("└──────────────────────────────────────────────┘");
+		System.out.println("───────────────── 라이더스　로그인 ─────────────────");
 		System.out.print("아이디>");
 		riderId = ScanUtil.nextLine();
 		System.out.print("비밀번호>");
@@ -89,8 +90,10 @@ public class RiderService {
 		if(rider == null){
 			System.out.println("아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
 		}else{
-			System.out.println("로그인 성공");
-			System.out.println("라이더님, 오늘도 안전운전 하세요!");
+			System.out.println("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
+			System.out.println("　　　　　　　　　　라이더스  로그인 성공!");
+			System.out.println("　　　　　　　라이더님, 오늘도 안전운전 하세요!");
+			System.out.println("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
 			Controller.loginUser = rider;
 			return View.RIDER_MAIN;
 		}
@@ -101,7 +104,7 @@ public class RiderService {
 	//라이더 메인화면
 	public int riderMain() {
 		System.out.println("┌──────────────────────────────────────────────┐");
-		System.out.println("│               서비스를 선택해주세요                                  │");
+		System.out.println("│               서비스를 선택해주세요               │");
 		System.out.println("└──────────────────────────────────────────────┘");
 		System.out.println("1.라이더 정보 조회"); //정보 조회 안에 정보 수정
 		System.out.println("2.식당 주문 리스트 조회"); //리스트 조회 안에 매칭 넣기
@@ -125,7 +128,7 @@ public class RiderService {
 	public int riderInfo() {
 
 		System.out.println("┌──────────────────────────────────────────────┐");
-		System.out.println("│                   라이더 정보 조회                                  │");
+		System.out.println("│　　　　　　　　　　　　　라이더 정보조회 　　　　　　　　　　　│");
 		System.out.println("└──────────────────────────────────────────────┘");
 		Map<String, Object> selectRider = riderDao.selectRider((String) Controller.loginUser.get("RD_ID"), (String) Controller.loginUser.get("RD_PW"));
 		System.out.println("─────────────────────────────────────────");
@@ -151,7 +154,7 @@ public class RiderService {
 	//라이더 정보 수정
 	public int riderUpdate() {
 		System.out.println("┌──────────────────────────────────────────────┐");
-		System.out.println("│                  라이더 정보 수정                                    │");
+		System.out.println("│                  라이더 정보 정                 │");
 		System.out.println("└──────────────────────────────────────────────┘");
 		System.out.println("수정하실 비밀번호를 입력해주세요 >");
 		String riderPw = ScanUtil.nextLine();
@@ -204,7 +207,7 @@ public class RiderService {
 		String gu = (String) selectRider.get("RD_ADRES1");
 		
 		System.out.println("┌──────────────────────────────────────────────┐");
-		System.out.println("│                  배달 대기 목록 조회                                │");
+		System.out.println("│                배달 대기 목록조회                │");
 		System.out.println("└──────────────────────────────────────────────┘");
 		System.out.println("조회 하실 목록을 선택해 주세요.");
 		System.out.println("1.접수완료(배달대기) 2.배달중 3.배달완료");

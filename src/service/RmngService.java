@@ -60,7 +60,7 @@ public class RmngService {
 	public int rmngServicelogin() {
 
 		System.out.println("┌──────────────────────────────────────────────┐");
-		System.out.println("│               배달 대행 업체 로그인                                   │");
+		System.out.println("│               배달 대행 업체 로그인               │");
 		System.out.println("└──────────────────────────────────────────────┘");
 		System.out.println("아이디를 입력해주세요 >");
 		riderMngId = ScanUtil.nextLine();
@@ -83,7 +83,7 @@ public class RmngService {
 	//대행업체 정보 수정
 	public int rmngUpdate() {
 		System.out.println("┌──────────────────────────────────────────────┐");
-		System.out.println("│               배달 대행 업체 정보 수정                               │");
+		System.out.println("│              배달 대행 업체 정보수정              │");
 		System.out.println("└──────────────────────────────────────────────┘");
 		System.out.println("수정하실 비밀번호를 입력해주세요 >");
 		String mngPw = ScanUtil.nextLine();
@@ -115,7 +115,7 @@ public class RmngService {
 	//대행업체 메인 화면
 	public int RmngMain() {
 		System.out.println("┌──────────────────────────────────────────────┐");
-		System.out.println("│               서비스를 선택해 주세요                                 │");
+		System.out.println("│               서비스를 선택해주세요               │");
 		System.out.println("└──────────────────────────────────────────────┘");
 		System.out.println("───────────────────────────────────────────────");
 		System.out.println("1.내 업체 조회"); //정보 조회 안에 정보 수정
@@ -138,7 +138,7 @@ public class RmngService {
 	public int rmngInfo() {
 
 		System.out.println("┌──────────────────────────────────────────────┐");
-		System.out.println("│                 대행업체 정보 조회                                   │");
+		System.out.println("│                대행업체 정보 조회                │");
 		System.out.println("└──────────────────────────────────────────────┘");
 		Map<String, Object> selectRider = rmngDao.selectRmng((String) Controller.loginUser.get("MNG_ID"), (String) Controller.loginUser.get("MNG_PW"));
 		System.out.println("아이디 : " + selectRider.get("MNG_ID"));
@@ -166,7 +166,7 @@ public class RmngService {
 		List<Map<String, Object>> riders = rmngDao.ridersView();
 		
 		System.out.println("┌──────────────────────────────────────────────┐");
-		System.out.println("│                   라이더 목록                                        │");
+		System.out.println("│                  라이더스 목록                  │");
 		System.out.println("└──────────────────────────────────────────────┘");
 		
 		for (Map<String, Object> rider : riders){
@@ -194,7 +194,7 @@ public class RmngService {
 	//라이더 삭제
 	public int riderDelete(){
 		System.out.println("┌──────────────────────────────────────────────┐");
-		System.out.println("│                   라이더 삭제                                         │");
+		System.out.println("│                  라이더스 삭제                  │");
 		System.out.println("└──────────────────────────────────────────────┘");
 		System.out.println("삭제하실 라이더의 이름을 입력해주세요 >");
 		String name = ScanUtil.nextLine();

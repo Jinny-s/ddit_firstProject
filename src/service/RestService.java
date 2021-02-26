@@ -344,7 +344,9 @@ public class RestService {
 		for (Map<String, Object> reviewList : reviewLists) {
 			System.out.print("리뷰번호 : " + reviewList.get("REVIEW_ID") + " / 주문번호 : " + reviewList.get("ORDER_ID"));
 			System.out.println(" / 별점 : " + reviewList.get("REVIEW_SCORE") + "점");
+			System.out.println();
 			System.out.println(reviewList.get("REVIEW_CONTENT"));
+			System.out.println();
 			System.out.println("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
 		} 
 		

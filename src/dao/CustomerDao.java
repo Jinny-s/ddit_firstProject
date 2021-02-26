@@ -146,7 +146,7 @@ public class CustomerDao {
 		List<Object> param = new ArrayList<>();
 		param.add(cstmr_id);
 		Map<String,Object> map = jdbc.selectOne(cashSql, param);
-		System.out.print("총 주문 금액 : " + map.get("PRICESUM") + "원,");
+		System.out.println("<< 총 주문 금액 : " + map.get("PRICESUM") + "원 >>");
 		int cstmr_cash = Integer.parseInt(String.valueOf(map.get("PRICESUM")));
 		
 //		String rstrnt_id = (String)map.get("RSTRNTID");
@@ -182,7 +182,7 @@ public class CustomerDao {
 	public int insertReview(Map<String, Object> param){
 		// 리뷰 작성
 		String sql = "INSERT INTO REVIEW VALUES ("
-				+ "(SELECT MAX(NVL(REVIEW_ID,0)) + 1 FROM REVIEW)"
+				+ "REVIEW_SEQ.NEXTVAL"
 				+ ",?,"
 				+ "(SELECT RSTRNT_ID FROM ORDERLIST WHERE ORDER_ID = ?)"
 				+ ",?,?)";

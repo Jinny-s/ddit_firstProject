@@ -111,6 +111,15 @@ public class CustomerService {
 		param.put("CSTMR_ADRES2", add2);
 		
 		int result = customerDao.insertUser(param);
+		
+	      if(0 < result){
+	          System.out.println("┌─────────────────────────────────────────────┐");
+	          System.out.println("│　　　　　　　　일반회원 가입이 완료되었습니다　　　　　　　 │");
+	          System.out.println("└─────────────────────────────────────────────┘");
+	       }else{
+	          System.out.println("!!!!!!!!!!!!!! 일반회원 회원가입 실패 !!!!!!!!!!!!!!");
+	       }
+		
 		return View.HOME;
 	}
 	
@@ -123,7 +132,7 @@ public class CustomerService {
 		System.out.println("비밀번호　: " + myInfo.get("CSTMR_PW"));
 		System.out.println("이름　　　: " + myInfo.get("CSTMR_NM"));
 		System.out.println("전화번호　: " + myInfo.get("CSTMR_HP"));
-		System.out.println("생년월일　: " + myInfo.get("CSTMR_BRTDY"));
+		System.out.println("생년월일　: " + myInfo.get("CSTMR_BRTHDY"));
 		System.out.println("지역구　　: " + myInfo.get("CSTMR_ADRES1"));
 		System.out.println("상세주소　: " + myInfo.get("CSTMR_ADRES2"));
 		System.out.println("캐시　　　: " + myInfo.get("CSTMR_CASH"));
