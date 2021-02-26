@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  파일이 생성됨 - 화요일-2월-23-2021   
+--  파일이 생성됨 - 금요일-2월-26-2021   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Sequence CART_SEQ
@@ -10,12 +10,22 @@
 --  DDL for Sequence MENU_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "JINNY"."MENU_SEQ"  MINVALUE 1 MAXVALUE 1000 INCREMENT BY 1 START WITH 29 CACHE 20 NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "JINNY"."MENU_SEQ"  MINVALUE 1 MAXVALUE 1000 INCREMENT BY 1 START WITH 101 CACHE 20 NOORDER  NOCYCLE ;
 --------------------------------------------------------
 --  DDL for Sequence ORDER_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "JINNY"."ORDER_SEQ"  MINVALUE 1 MAXVALUE 1000 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "JINNY"."ORDER_SEQ"  MINVALUE 1 MAXVALUE 1000 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence REST_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "JINNY"."REST_SEQ"  MINVALUE 1 MAXVALUE 1000 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence REVIEW_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "JINNY"."REVIEW_SEQ"  MINVALUE 1 MAXVALUE 1000 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
 --------------------------------------------------------
 --  DDL for Table ADDRESS
 --------------------------------------------------------
@@ -199,7 +209,8 @@
 	"RSTRNT_TELNO" VARCHAR2(30 CHAR), 
 	"RSTRNT_ADRES1" VARCHAR2(50 CHAR), 
 	"RSTRNT_ADRES2" VARCHAR2(300 CHAR), 
-	"FDTY_GU" CHAR(4 CHAR)
+	"FDTY_GU" CHAR(4 CHAR), 
+	"RSTRNT_NO" NUMBER(5,0)
    ) SEGMENT CREATION IMMEDIATE 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
@@ -213,6 +224,7 @@
    COMMENT ON COLUMN "JINNY"."RESTAURANT"."RSTRNT_ADRES1" IS '주소1';
    COMMENT ON COLUMN "JINNY"."RESTAURANT"."RSTRNT_ADRES2" IS '주소2';
    COMMENT ON COLUMN "JINNY"."RESTAURANT"."FDTY_GU" IS '식당분류코드';
+   COMMENT ON COLUMN "JINNY"."RESTAURANT"."RSTRNT_NO" IS '식당번호';
    COMMENT ON TABLE "JINNY"."RESTAURANT"  IS '식당';
 --------------------------------------------------------
 --  DDL for Table REVIEW
@@ -245,7 +257,8 @@
 	"RD_PW" VARCHAR2(100 CHAR), 
 	"RD_NM" VARCHAR2(30 CHAR), 
 	"RD_ADRES1" VARCHAR2(50 CHAR), 
-	"RD_ADRES2" VARCHAR2(300 CHAR)
+	"RD_ADRES2" VARCHAR2(300 CHAR), 
+	"RD_TELNO" VARCHAR2(30 BYTE)
    ) SEGMENT CREATION IMMEDIATE 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
@@ -257,6 +270,7 @@
    COMMENT ON COLUMN "JINNY"."RIDERS"."RD_NM" IS '이름';
    COMMENT ON COLUMN "JINNY"."RIDERS"."RD_ADRES1" IS '주소1';
    COMMENT ON COLUMN "JINNY"."RIDERS"."RD_ADRES2" IS '주소2';
+   COMMENT ON COLUMN "JINNY"."RIDERS"."RD_TELNO" IS '전화번호';
    COMMENT ON TABLE "JINNY"."RIDERS"  IS '라이더스';
 --------------------------------------------------------
 --  DDL for Table RIDER_MNG
@@ -290,18 +304,28 @@ SET DEFINE OFF;
 Insert into JINNY.ADMINISTRATOR (ADM_ID,ADM_PW,ADM_NM) values ('admin','admin','최고관리자');
 REM INSERTING into JINNY.CART
 SET DEFINE OFF;
-Insert into JINNY.CART (CART_ID,CART_QTY,CSTMR_ID,MENU_ID) values (1,1,'jyj2','1');
-Insert into JINNY.CART (CART_ID,CART_QTY,CSTMR_ID,MENU_ID) values (2,3,'jyj','4');
+Insert into JINNY.CART (CART_ID,CART_QTY,CSTMR_ID,MENU_ID) values (9,2,'khs','31');
 REM INSERTING into JINNY.CONTENT
 SET DEFINE OFF;
-Insert into JINNY.CONTENT (ORDER_ID,MENU_ID,CONTENT_QTY) values (1,'1',1);
+Insert into JINNY.CONTENT (ORDER_ID,MENU_ID,CONTENT_QTY) values (7,'23',1);
+Insert into JINNY.CONTENT (ORDER_ID,MENU_ID,CONTENT_QTY) values (7,'37',2);
+Insert into JINNY.CONTENT (ORDER_ID,MENU_ID,CONTENT_QTY) values (8,'28',5);
+Insert into JINNY.CONTENT (ORDER_ID,MENU_ID,CONTENT_QTY) values (9,'15',1);
+Insert into JINNY.CONTENT (ORDER_ID,MENU_ID,CONTENT_QTY) values (10,'75',2);
+Insert into JINNY.CONTENT (ORDER_ID,MENU_ID,CONTENT_QTY) values (11,'80',10);
+Insert into JINNY.CONTENT (ORDER_ID,MENU_ID,CONTENT_QTY) values (12,'91',10);
+Insert into JINNY.CONTENT (ORDER_ID,MENU_ID,CONTENT_QTY) values (2,'61',1);
+Insert into JINNY.CONTENT (ORDER_ID,MENU_ID,CONTENT_QTY) values (2,'65',1);
+Insert into JINNY.CONTENT (ORDER_ID,MENU_ID,CONTENT_QTY) values (5,'54',2);
+Insert into JINNY.CONTENT (ORDER_ID,MENU_ID,CONTENT_QTY) values (5,'46',1);
+Insert into JINNY.CONTENT (ORDER_ID,MENU_ID,CONTENT_QTY) values (5,'49',1);
 REM INSERTING into JINNY.CUSTOMER
 SET DEFINE OFF;
-Insert into JINNY.CUSTOMER (CSTMR_ID,CSTMR_PW,CSTMR_NM,CSTMR_HP,CSTMR_BRTHDY,CSTMR_ADRES1,CSTMR_ADRES2,CSTMR_CASH) values ('kdh','java','김두환','010-1000-1000','99/00/00','동구','상세주소',1000000);
-Insert into JINNY.CUSTOMER (CSTMR_ID,CSTMR_PW,CSTMR_NM,CSTMR_HP,CSTMR_BRTHDY,CSTMR_ADRES1,CSTMR_ADRES2,CSTMR_CASH) values ('jyj','java','전윤주','010-2000-0000','03/00/00','서구','상세주소',1000000);
-Insert into JINNY.CUSTOMER (CSTMR_ID,CSTMR_PW,CSTMR_NM,CSTMR_HP,CSTMR_BRTHDY,CSTMR_ADRES1,CSTMR_ADRES2,CSTMR_CASH) values ('khs','java','김현슬','010-3000-0000','98/00/00','중구','상세주소',1000000);
-Insert into JINNY.CUSTOMER (CSTMR_ID,CSTMR_PW,CSTMR_NM,CSTMR_HP,CSTMR_BRTHDY,CSTMR_ADRES1,CSTMR_ADRES2,CSTMR_CASH) values ('jyj2','java','정유진','010-4000-0000','92/00/00','유성구','상세주소',1000000);
-Insert into JINNY.CUSTOMER (CSTMR_ID,CSTMR_PW,CSTMR_NM,CSTMR_HP,CSTMR_BRTHDY,CSTMR_ADRES1,CSTMR_ADRES2,CSTMR_CASH) values ('AAA','변경비밀번호','변경 이름','변경 전화번호','변경 생일','변경 주소 1','변경 주소 2',20);
+Insert into JINNY.CUSTOMER (CSTMR_ID,CSTMR_PW,CSTMR_NM,CSTMR_HP,CSTMR_BRTHDY,CSTMR_ADRES1,CSTMR_ADRES2,CSTMR_CASH) values ('khs','khs','김현슬','010-2000-2000','98/00/00','중구','김현슬 상세주소',4927000);
+Insert into JINNY.CUSTOMER (CSTMR_ID,CSTMR_PW,CSTMR_NM,CSTMR_HP,CSTMR_BRTHDY,CSTMR_ADRES1,CSTMR_ADRES2,CSTMR_CASH) values ('jyj','jyj','전윤주','010-3000-3000','03/00/00','서구','전윤주 상세주소',9943410);
+Insert into JINNY.CUSTOMER (CSTMR_ID,CSTMR_PW,CSTMR_NM,CSTMR_HP,CSTMR_BRTHDY,CSTMR_ADRES1,CSTMR_ADRES2,CSTMR_CASH) values ('jyj2','jyj2','정유진','010-4000-4000','92/00/00','유성구','정유진 상세주소',9832500);
+Insert into JINNY.CUSTOMER (CSTMR_ID,CSTMR_PW,CSTMR_NM,CSTMR_HP,CSTMR_BRTHDY,CSTMR_ADRES1,CSTMR_ADRES2,CSTMR_CASH) values ('test','test','테스트','010-0000-0000','99/00/00','대덕구','상세주소123',99710000);
+Insert into JINNY.CUSTOMER (CSTMR_ID,CSTMR_PW,CSTMR_NM,CSTMR_HP,CSTMR_BRTHDY,CSTMR_ADRES1,CSTMR_ADRES2,CSTMR_CASH) values ('kdh','kdh','김두환','010-1000-1000','99/00/00','동구','김두환 상세주소',86100);
 REM INSERTING into JINNY.FOODTYPE
 SET DEFINE OFF;
 Insert into JINNY.FOODTYPE (FDTY_GU,FDTY_NM) values ('1   ','한식');
@@ -317,39 +341,166 @@ Insert into JINNY.FOODTYPE (FDTY_GU,FDTY_NM) values ('10  ','찜/탕');
 Insert into JINNY.FOODTYPE (FDTY_GU,FDTY_NM) values ('11  ','패스트푸드');
 REM INSERTING into JINNY.MATCHIN
 SET DEFINE OFF;
-Insert into JINNY.MATCHIN (ORDER_ID,RD_ID) values (1,'kdh');
 REM INSERTING into JINNY.MENU
 SET DEFINE OFF;
-Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('1','부대찌개',9000,'budae');
-Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('2','왕돈까스',10000,'donka');
-Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('3','슈크림빵',2500,'paris');
-Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('4','초밥A세트',12000,'sushi');
-Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('5','당면사리',2000,'budae');
-Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('6','함박스테이크',15000,'donka');
-Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('7','소시지빵',3500,'paris');
-Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('8','우동세트',7500,'sushi');
-Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('9','소보로빵',1500,'paris');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('3','블랙페퍼 소스와 돼지 목살 스테이크',25000,'watermeal');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('4','단호박 크림 스프',5500,'watermeal');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('5','명란 감자 크라탱',9900,'watermeal');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('6','1인 샤브샤브',16000,'oncheon');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('7','트러플 튀김 덮밥',17000,'oncheon');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('8','북해도식 얼큰 샤브샤브',17000,'oncheon');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('9','비프 스테이크 정식',21000,'oncheon');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('10','우삽겹/곱창 짬뽕',8500,'east');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('11','꿔바로우',17000,'east');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('1','워터밀 플레이트',17900,'watermeal');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('12','토마토짬뽕',8500,'east');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('13','부추꽃볶음밥',8500,'east');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('2','쉬림프 에그 샌드위치',6500,'watermeal');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('14','동북아 물짜장',9000,'east');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('15','서천 김 페스토 파스타',13900,'pound');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('16','예산 꽈리고추 닭구이',13900,'pound');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('17','예산 표고 트러플 크림 파스타',15900,'pound');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('18','금산 추부 깻잎 리소또',15900,'pound');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('19','파운드 피자',13900,'pound');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('20','부여 방울토마토 소스 가지롤',13900,'pound');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('21','두부두루치기',13000,'light');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('22','칼국수',5000,'light');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('23','수육(소)',18000,'light');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('24','오징어두루치기',20000,'light');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('25','공기밥',1000,'light');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('26','튀김소보로',1500,'sungsimdam');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('27','판타롱부추빵',1800,'sungsimdam');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('28','보문산메아리',5000,'sungsimdam');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('29','애플파이',2500,'sungsimdam');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('30','성심순크림빵',2000,'sungsimdam');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('31','냄비짬뽕(중)',16000,'dong');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('32','탕수육(소)',15000,'dong');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('33','냄비우동(중)',16000,'dong');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('34','오콩면',14000,'dong');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('35','칭따오',5000,'dong');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('36','반건조오징어',12000,'moon');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('37','달빛아래밤새우',15000,'moon');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('38','국산맥주',4000,'moon');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('39','황태',12000,'moon');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('40','치킨텐더',15000,'moon');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('41','순살 야채 후라이드 치킨',17000,'ajaja');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('42','(뼈) 순한맛 양념치킨',19000,'ajaja');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('43','(뼈) 매운맛 양념치킨',19000,'ajaja');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('44','(뼈) 반반치킨 (후라이드+매운양념)',19000,'ajaja');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('45','생맥주 500cc',3500,'ajaja');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('46','갈림듬뿍 닭한마리 돌솥리소토',21000,'italy');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('47','돼지갈비묵은지 돌솥리소토',17000,'italy');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('48','숯불갈비 흑임자 파스타',17000,'italy');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('49','직화오겹살대패파스타',17000,'italy');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('50','돼지갈비 오일 파스타',9900,'italy');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('51','미도인 등심 스테이크',13300,'mioin');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('52','가정식 부챗살 스테이크',12300,'mioin');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('53','대창 부채 스테이크',16300,'mioin');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('54','화산 불백 덮밥',9300,'mioin');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('55','미도인 스테이크 덮밥',9800,'mioin');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('56','아딕토스',4800,'corner');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('57','바일라',4300,'corner');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('58','카페라떼',5300,'corner');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('59','초코라떼',4300,'corner');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('60','오레그랏세',6300,'corner');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('61','소국밥',6500,'tae');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('62','육사시미',8000,'tae');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('63','소내장탕',6500,'tae');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('64','매운소갈비찜',25000,'tae');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('65','궁중소갈비찜',25000,'tae');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('66','파돈가스',9500,'dae');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('67','치즈돈가스',9500,'dae');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('68','비돌박이',9500,'dae');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('69','밀면',7000,'dae');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('70','가락우동',5900,'dae');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('71','아메리카노',3500,'chan');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('72','그린보울',7500,'chan');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('73','블루베리보울',7500,'chan');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('74','스트로베리스콘',3500,'chan');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('75','초콜릿스콘',3500,'chan');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('76','팟타이',8900,'eat');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('77','뿌팟퐁커리',16900,'eat');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('78','그린커리',8900,'eat');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('79','쌀국수',8900,'eat');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('80','똠양꿍누들',12900,'eat');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('81','고기품은 두부전골(소)',22000,'mae');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('82','삼계탕',12000,'mae');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('83','콩국수',7000,'mae');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('84','토끼탕',50000,'mae');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('85','비지',8000,'mae');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('86','스테이크 로제 파스타',16000,'kiki');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('87','트러플 버섯 리조또',16000,'kiki');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('88','리코타샐러드',9000,'kiki');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('89','아보카도 새우 샐러드',12000,'kiki');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('90','봉골레 오일 파스타',14000,'kiki');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('91','살치살 스테이크',29000,'dadi');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('92','풍기 샐러드',14000,'dadi');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('93','마르게리따',14000,'dadi');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('94','고르곤졸라',15000,'dadi');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('95','트러플 리조또',14000,'dadi');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('96','북경오리 코스',24000,'ggong');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('97','오리랑 갈비랑',29000,'ggong');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('98','단호박죽',6000,'ggong');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('99','꿔바로우',14000,'ggong');
+Insert into JINNY.MENU (MENU_ID,MENU_NM,MENU_PRICE,RSTRNT_ID) values ('100','매실차',3500,'ggong');
 REM INSERTING into JINNY.ORDERLIST
 SET DEFINE OFF;
-Insert into JINNY.ORDERLIST (ORDER_ID,CSTMR_ID,RSTRNT_ID,ORDER_STATUS,ORDER_COST,ORDER_DATE) values (1,'kdh','budae','배달대기중',1000,to_date('21/02/23','RR/MM/DD'));
-Insert into JINNY.ORDERLIST (ORDER_ID,CSTMR_ID,RSTRNT_ID,ORDER_STATUS,ORDER_COST,ORDER_DATE) values (2,'jyj','budae','ㅎㅇ',2000,to_date('21/02/03','RR/MM/DD'));
-Insert into JINNY.ORDERLIST (ORDER_ID,CSTMR_ID,RSTRNT_ID,ORDER_STATUS,ORDER_COST,ORDER_DATE) values (3,'jyj2','budae','1',2000,to_date('21/02/03','RR/MM/DD'));
-Insert into JINNY.ORDERLIST (ORDER_ID,CSTMR_ID,RSTRNT_ID,ORDER_STATUS,ORDER_COST,ORDER_DATE) values (4,'kdh','budae','배달대기중',2000,to_date('21/02/03','RR/MM/DD'));
+Insert into JINNY.ORDERLIST (ORDER_ID,CSTMR_ID,RSTRNT_ID,ORDER_STATUS,ORDER_COST,ORDER_DATE) values (3,'jyj','italy','주문대기',21000,to_date('21/02/26','RR/MM/DD'));
+Insert into JINNY.ORDERLIST (ORDER_ID,CSTMR_ID,RSTRNT_ID,ORDER_STATUS,ORDER_COST,ORDER_DATE) values (4,'jyj','italy','주문대기',17000,to_date('21/02/26','RR/MM/DD'));
+Insert into JINNY.ORDERLIST (ORDER_ID,CSTMR_ID,RSTRNT_ID,ORDER_STATUS,ORDER_COST,ORDER_DATE) values (5,'jyj','mioin','주문대기',9300,to_date('21/02/26','RR/MM/DD'));
+Insert into JINNY.ORDERLIST (ORDER_ID,CSTMR_ID,RSTRNT_ID,ORDER_STATUS,ORDER_COST,ORDER_DATE) values (6,'khs','light','주문대기',18000,to_date('21/02/26','RR/MM/DD'));
+Insert into JINNY.ORDERLIST (ORDER_ID,CSTMR_ID,RSTRNT_ID,ORDER_STATUS,ORDER_COST,ORDER_DATE) values (7,'khs','moon','주문대기',15000,to_date('21/02/26','RR/MM/DD'));
+Insert into JINNY.ORDERLIST (ORDER_ID,CSTMR_ID,RSTRNT_ID,ORDER_STATUS,ORDER_COST,ORDER_DATE) values (8,'khs','sungsimdam','주문대기',5000,to_date('21/02/26','RR/MM/DD'));
+Insert into JINNY.ORDERLIST (ORDER_ID,CSTMR_ID,RSTRNT_ID,ORDER_STATUS,ORDER_COST,ORDER_DATE) values (9,'kdh','pound','배달완료',13900,to_date('21/02/26','RR/MM/DD'));
+Insert into JINNY.ORDERLIST (ORDER_ID,CSTMR_ID,RSTRNT_ID,ORDER_STATUS,ORDER_COST,ORDER_DATE) values (10,'jyj2','chan','배달완료',3500,to_date('21/02/26','RR/MM/DD'));
+Insert into JINNY.ORDERLIST (ORDER_ID,CSTMR_ID,RSTRNT_ID,ORDER_STATUS,ORDER_COST,ORDER_DATE) values (11,'jyj2','eat','배달완료',12900,to_date('21/02/26','RR/MM/DD'));
+Insert into JINNY.ORDERLIST (ORDER_ID,CSTMR_ID,RSTRNT_ID,ORDER_STATUS,ORDER_COST,ORDER_DATE) values (12,'test','dadi','배달완료',29000,to_date('21/02/26','RR/MM/DD'));
+Insert into JINNY.ORDERLIST (ORDER_ID,CSTMR_ID,RSTRNT_ID,ORDER_STATUS,ORDER_COST,ORDER_DATE) values (1,'jyj2','tae','배달완료',6500,to_date('21/02/26','RR/MM/DD'));
+Insert into JINNY.ORDERLIST (ORDER_ID,CSTMR_ID,RSTRNT_ID,ORDER_STATUS,ORDER_COST,ORDER_DATE) values (2,'jyj2','tae','배달완료',25000,to_date('21/02/26','RR/MM/DD'));
 REM INSERTING into JINNY.RESTAURANT
 SET DEFINE OFF;
-Insert into JINNY.RESTAURANT (RSTRNT_ID,RSTRNT_PW,RSTRNT_NM,RSTRNT_TELNO,RSTRNT_ADRES1,RSTRNT_ADRES2,FDTY_GU) values ('budae','java','아부찌 부대찌개','050-4920-2374','유성구','상세주소','1   ');
-Insert into JINNY.RESTAURANT (RSTRNT_ID,RSTRNT_PW,RSTRNT_NM,RSTRNT_TELNO,RSTRNT_ADRES1,RSTRNT_ADRES2,FDTY_GU) values ('donka','java','경성돈카츠','050-7802-8777','서구','상세주소','2   ');
-Insert into JINNY.RESTAURANT (RSTRNT_ID,RSTRNT_PW,RSTRNT_NM,RSTRNT_TELNO,RSTRNT_ADRES1,RSTRNT_ADRES2,FDTY_GU) values ('paris','test','빠바','050-4932-8193','서구','읭','3   ');
-Insert into JINNY.RESTAURANT (RSTRNT_ID,RSTRNT_PW,RSTRNT_NM,RSTRNT_TELNO,RSTRNT_ADRES1,RSTRNT_ADRES2,FDTY_GU) values ('sushi','java','스시사랑','050-3750-3411','중구','상세주소','4   ');
-Insert into JINNY.RESTAURANT (RSTRNT_ID,RSTRNT_PW,RSTRNT_NM,RSTRNT_TELNO,RSTRNT_ADRES1,RSTRNT_ADRES2,FDTY_GU) values ('macdo','java','맥도날드','042-333-4444','중구','맥도상세주소','11  ');
+Insert into JINNY.RESTAURANT (RSTRNT_ID,RSTRNT_PW,RSTRNT_NM,RSTRNT_TELNO,RSTRNT_ADRES1,RSTRNT_ADRES2,FDTY_GU,RSTRNT_NO) values ('oncheon','java','온천집','050-71498-0916','동구','수향길 17','1   ',2);
+Insert into JINNY.RESTAURANT (RSTRNT_ID,RSTRNT_PW,RSTRNT_NM,RSTRNT_TELNO,RSTRNT_ADRES1,RSTRNT_ADRES2,FDTY_GU,RSTRNT_NO) values ('east','java','동북아','0507-1415-3580','동구','철갑길 45','8   ',3);
+Insert into JINNY.RESTAURANT (RSTRNT_ID,RSTRNT_PW,RSTRNT_NM,RSTRNT_TELNO,RSTRNT_ADRES1,RSTRNT_ADRES2,FDTY_GU,RSTRNT_NO) values ('pound','java','파운드','070-4177-7171','동구','수향길 25 파운드','7   ',4);
+Insert into JINNY.RESTAURANT (RSTRNT_ID,RSTRNT_PW,RSTRNT_NM,RSTRNT_TELNO,RSTRNT_ADRES1,RSTRNT_ADRES2,FDTY_GU,RSTRNT_NO) values ('light','java','광천식당','042-226-4751','중구','대종로 505번길 29','1   ',5);
+Insert into JINNY.RESTAURANT (RSTRNT_ID,RSTRNT_PW,RSTRNT_NM,RSTRNT_TELNO,RSTRNT_ADRES1,RSTRNT_ADRES2,FDTY_GU,RSTRNT_NO) values ('sungsimdam','java','성심당 본점','1588-8069','중구','대종로 480번길 15','3   ',6);
+Insert into JINNY.RESTAURANT (RSTRNT_ID,RSTRNT_PW,RSTRNT_NM,RSTRNT_TELNO,RSTRNT_ADRES1,RSTRNT_ADRES2,FDTY_GU,RSTRNT_NO) values ('watermeal','java','워터밀','042-673-1230','동구','수향길 2 1층','3   ',1);
+Insert into JINNY.RESTAURANT (RSTRNT_ID,RSTRNT_PW,RSTRNT_NM,RSTRNT_TELNO,RSTRNT_ADRES1,RSTRNT_ADRES2,FDTY_GU,RSTRNT_NO) values ('dong','java','동은성','042-252-3866','중구','대종로 532-1 23-2','8   ',7);
+Insert into JINNY.RESTAURANT (RSTRNT_ID,RSTRNT_PW,RSTRNT_NM,RSTRNT_TELNO,RSTRNT_ADRES1,RSTRNT_ADRES2,FDTY_GU,RSTRNT_NO) values ('moon','java','달빛한옥','0507-1314-3242','중구','선화서로 43번길 6','1   ',8);
+Insert into JINNY.RESTAURANT (RSTRNT_ID,RSTRNT_PW,RSTRNT_NM,RSTRNT_TELNO,RSTRNT_ADRES1,RSTRNT_ADRES2,FDTY_GU,RSTRNT_NO) values ('ajaja','java','아자자야채치킨','0507-1315-3881','서구','월평중로 4번길 13','5   ',9);
+Insert into JINNY.RESTAURANT (RSTRNT_ID,RSTRNT_PW,RSTRNT_NM,RSTRNT_TELNO,RSTRNT_ADRES1,RSTRNT_ADRES2,FDTY_GU,RSTRNT_NO) values ('italy','java','이태리국시','0507-1412-0950','서구','둔산로 31번길 31 방림빌딩 2층','7   ',10);
+Insert into JINNY.RESTAURANT (RSTRNT_ID,RSTRNT_PW,RSTRNT_NM,RSTRNT_TELNO,RSTRNT_ADRES1,RSTRNT_ADRES2,FDTY_GU,RSTRNT_NO) values ('mioin','java','미도인 대전둔산','042-472-9992','서구','둔산로 31번길 51','4   ',11);
+Insert into JINNY.RESTAURANT (RSTRNT_ID,RSTRNT_PW,RSTRNT_NM,RSTRNT_TELNO,RSTRNT_ADRES1,RSTRNT_ADRES2,FDTY_GU,RSTRNT_NO) values ('corner','java','코너88','0507-1329-0982','서구','가장로 78','3   ',12);
+Insert into JINNY.RESTAURANT (RSTRNT_ID,RSTRNT_PW,RSTRNT_NM,RSTRNT_TELNO,RSTRNT_ADRES1,RSTRNT_ADRES2,FDTY_GU,RSTRNT_NO) values ('tae','java','태평소국밥','042-525-5820','유성구','온천동로 65번길 50','1   ',13);
+Insert into JINNY.RESTAURANT (RSTRNT_ID,RSTRNT_PW,RSTRNT_NM,RSTRNT_TELNO,RSTRNT_ADRES1,RSTRNT_ADRES2,FDTY_GU,RSTRNT_NO) values ('dae','java','대손관본점','0507-1337-1990','유성구','문화원로 146번길 17','7   ',14);
+Insert into JINNY.RESTAURANT (RSTRNT_ID,RSTRNT_PW,RSTRNT_NM,RSTRNT_TELNO,RSTRNT_ADRES1,RSTRNT_ADRES2,FDTY_GU,RSTRNT_NO) values ('chan','java','챈들러','0507-1345-2435','유성구','원신흥남로 27번길 33','3   ',15);
+Insert into JINNY.RESTAURANT (RSTRNT_ID,RSTRNT_PW,RSTRNT_NM,RSTRNT_TELNO,RSTRNT_ADRES1,RSTRNT_ADRES2,FDTY_GU,RSTRNT_NO) values ('eat','java','잇마이타이','0507-1420-5466','유성구','문화원로 77 그랑펠리체','7   ',16);
+Insert into JINNY.RESTAURANT (RSTRNT_ID,RSTRNT_PW,RSTRNT_NM,RSTRNT_TELNO,RSTRNT_ADRES1,RSTRNT_ADRES2,FDTY_GU,RSTRNT_NO) values ('mae','java','매봉식당','042-625-3345','대덕구','계족로 664번길 113','1   ',17);
+Insert into JINNY.RESTAURANT (RSTRNT_ID,RSTRNT_PW,RSTRNT_NM,RSTRNT_TELNO,RSTRNT_ADRES1,RSTRNT_ADRES2,FDTY_GU,RSTRNT_NO) values ('kiki','java','비래키키','0507-1317-9180','대덕구','비래골길 47-12','3   ',18);
+Insert into JINNY.RESTAURANT (RSTRNT_ID,RSTRNT_PW,RSTRNT_NM,RSTRNT_TELNO,RSTRNT_ADRES1,RSTRNT_ADRES2,FDTY_GU,RSTRNT_NO) values ('dadi','java','다디','0507-1437-1152','대덕구','신탄진동로 23','7   ',19);
+Insert into JINNY.RESTAURANT (RSTRNT_ID,RSTRNT_PW,RSTRNT_NM,RSTRNT_TELNO,RSTRNT_ADRES1,RSTRNT_ADRES2,FDTY_GU,RSTRNT_NO) values ('ggong','java','꽁뚜','042-483-9999','대덕구','신탄진로 36번길 111','1   ',20);
 REM INSERTING into JINNY.REVIEW
 SET DEFINE OFF;
+Insert into JINNY.REVIEW (REVIEW_ID,REVIEW_CONTENT,RSTRNT_ID,ORDER_ID,REVIEW_SCORE) values (2,'정말 맛있어요!!','tae',2,5);
+Insert into JINNY.REVIEW (REVIEW_ID,REVIEW_CONTENT,RSTRNT_ID,ORDER_ID,REVIEW_SCORE) values (4,'맛있어용 ~','light',6,4);
+Insert into JINNY.REVIEW (REVIEW_ID,REVIEW_CONTENT,RSTRNT_ID,ORDER_ID,REVIEW_SCORE) values (5,'너무너무 맛있어요~','italy',4,5);
+Insert into JINNY.REVIEW (REVIEW_ID,REVIEW_CONTENT,RSTRNT_ID,ORDER_ID,REVIEW_SCORE) values (6,'그저그래요','moon',7,2);
+Insert into JINNY.REVIEW (REVIEW_ID,REVIEW_CONTENT,RSTRNT_ID,ORDER_ID,REVIEW_SCORE) values (100,'맛있어요!','tae',1,5);
+Insert into JINNY.REVIEW (REVIEW_ID,REVIEW_CONTENT,RSTRNT_ID,ORDER_ID,REVIEW_SCORE) values (7,'덮밥이 이렇게 맛있는 줄 이제 알았어요','mioin',5,5);
+Insert into JINNY.REVIEW (REVIEW_ID,REVIEW_CONTENT,RSTRNT_ID,ORDER_ID,REVIEW_SCORE) values (11,'너무 맛있었어용','eat',11,5);
+Insert into JINNY.REVIEW (REVIEW_ID,REVIEW_CONTENT,RSTRNT_ID,ORDER_ID,REVIEW_SCORE) values (9,'배달이 너무 늦네요','pound',9,2);
+Insert into JINNY.REVIEW (REVIEW_ID,REVIEW_CONTENT,RSTRNT_ID,ORDER_ID,REVIEW_SCORE) values (10,'초콜릿칩이 너무 부족해용 많이 넣어주세용','chan',10,3);
+Insert into JINNY.REVIEW (REVIEW_ID,REVIEW_CONTENT,RSTRNT_ID,ORDER_ID,REVIEW_SCORE) values (12,'완전 맛있었어용','dadi',12,5);
 REM INSERTING into JINNY.RIDERS
 SET DEFINE OFF;
-Insert into JINNY.RIDERS (RD_ID,RD_PW,RD_NM,RD_ADRES1,RD_ADRES2) values ('kdh','qwe','qwe','qew','qwe');
+Insert into JINNY.RIDERS (RD_ID,RD_PW,RD_NM,RD_ADRES1,RD_ADRES2,RD_TELNO) values ('jungu','java','중구라이더','중구','중구 상세주고','010-3000-0000');
+Insert into JINNY.RIDERS (RD_ID,RD_PW,RD_NM,RD_ADRES1,RD_ADRES2,RD_TELNO) values ('donggu','java','동구라이더','동구','동구 상세주소','010-1000-1000');
+Insert into JINNY.RIDERS (RD_ID,RD_PW,RD_NM,RD_ADRES1,RD_ADRES2,RD_TELNO) values ('seogu','java','서구라이더','서구','서구 상세주소','010-2000-0000');
+Insert into JINNY.RIDERS (RD_ID,RD_PW,RD_NM,RD_ADRES1,RD_ADRES2,RD_TELNO) values ('yuseong','java','유성라이더','유성구','유성구 상세주소','010-4000-0000');
+Insert into JINNY.RIDERS (RD_ID,RD_PW,RD_NM,RD_ADRES1,RD_ADRES2,RD_TELNO) values ('daedeok','java','대덕라이더','대덕구','대덕 상세주소','010-5000-0000');
 REM INSERTING into JINNY.RIDER_MNG
 SET DEFINE OFF;
-Insert into JINNY.RIDER_MNG (MNG_ID,MNG_PW,MNG_NM,MNG_TELNO) values ('kdh','kdh','김두환','010-0000-0000');
+Insert into JINNY.RIDER_MNG (MNG_ID,MNG_PW,MNG_NM,MNG_TELNO) values ('manager','java','라이더대행업체','042-1000-0000');
 --------------------------------------------------------
 --  Constraints for Table ADDRESS
 --------------------------------------------------------
@@ -397,10 +548,6 @@ Insert into JINNY.RIDER_MNG (MNG_ID,MNG_PW,MNG_NM,MNG_TELNO) values ('kdh','kdh'
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "SYSTEM"  ENABLE;
-  ALTER TABLE "JINNY"."CART" MODIFY ("MENU_ID" NOT NULL ENABLE);
-  ALTER TABLE "JINNY"."CART" MODIFY ("CSTMR_ID" NOT NULL ENABLE);
-  ALTER TABLE "JINNY"."CART" MODIFY ("CART_QTY" NOT NULL ENABLE);
-  ALTER TABLE "JINNY"."CART" MODIFY ("CART_ID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table ORDERLIST
 --------------------------------------------------------
@@ -441,9 +588,6 @@ Insert into JINNY.RIDER_MNG (MNG_ID,MNG_PW,MNG_NM,MNG_TELNO) values ('kdh','kdh'
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "SYSTEM"  ENABLE;
-  ALTER TABLE "JINNY"."REVIEW" MODIFY ("REVIEW_SCORE" NOT NULL ENABLE);
-  ALTER TABLE "JINNY"."REVIEW" MODIFY ("ORDER_ID" NOT NULL ENABLE);
-  ALTER TABLE "JINNY"."REVIEW" MODIFY ("RSTRNT_ID" NOT NULL ENABLE);
   ALTER TABLE "JINNY"."REVIEW" MODIFY ("REVIEW_ID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table CONTENT
@@ -500,6 +644,7 @@ Insert into JINNY.RIDER_MNG (MNG_ID,MNG_PW,MNG_NM,MNG_TELNO) values ('kdh','kdh'
 --  Constraints for Table RIDERS
 --------------------------------------------------------
 
+  ALTER TABLE "JINNY"."RIDERS" MODIFY ("RD_TELNO" NOT NULL ENABLE);
   ALTER TABLE "JINNY"."RIDERS" ADD PRIMARY KEY ("RD_ID")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
